@@ -6,7 +6,7 @@
 #    By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 00:46:08 by mbrousse          #+#    #+#              #
-#    Updated: 2024/02/29 18:39:23 by mbrousse         ###   ########.fr        #
+#    Updated: 2024/02/29 19:25:00 by mbrousse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ ${OBJECTS} : ${OBJ_D}%.o: ${SRC_D}%.c  ${HEADER} Makefile
 	@printf ${UP}${CUT}
 
 ${NAME}: ${OBJ_D} ${OBJECTS} Makefile
-	@$(CC) $(OBJECTS) -o $(NAME)
+	@$(CC) $(OBJECTS) -lpthread -o $(NAME)
 	@$(eval CHANGED=1)
 	@echo "$(GREEN)$(NAME) compiled!$(DEFAULT)"
 
