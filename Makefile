@@ -6,21 +6,25 @@
 #    By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 00:46:08 by mbrousse          #+#    #+#              #
-#    Updated: 2024/02/19 00:50:07 by mbrousse         ###   ########.fr        #
+#    Updated: 2024/02/29 18:39:23 by mbrousse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SOURCES	=	philo.c
+SOURCES	=	philo.c\
+			checker.c\
+			error.c\
+			initialization.c\
+			philo_utils.c
 
-OBJ_D	= objs/
+OBJ_D	= .objs/
 
 SRC_D	= src/
 
 OBJECTS = ${SOURCES:%.c=${OBJ_D}%.o}
 
-HEADER 	=	includes/philo.h
+HEADER_DIR      =       ./includes
 
-H_D 	= 	.
+HEADER  =       $(HEADER_DIR)/philo.h
 
 NAME			=	philo
 
@@ -28,17 +32,30 @@ CC 				=	cc
 
 FLAGS 			=	-Wall -Wextra -Werror
 
-all:
-	@make --no-print-directory ${NAME}
+GREEN	  		=	 \033[1;32m
+BLUE			=	 \033[1;34m
+RED				=	 \033[1;31m
+YELLOW	 		=	 \033[1;33m
+DEFAULT			=	 \033[0m
+UP	  			=	 "\033[A"
+CUT				=	 "\033[K"
+
+CHANGED    =    0
+
+all:${NAME}
 
 ${OBJ_D}:
 	@mkdir -p ${OBJ_D}
 	
 ${OBJECTS} : ${OBJ_D}%.o: ${SRC_D}%.c  ${HEADER} Makefile
-	${CC} ${FLAGS} -I/usr/include -c $< -o $@
+	@echo "$(YELLOW)Compiling [$<]$(DEFAULT)"
+	@${CC} ${FLAGS} -I $(HEADER_DIR) -c $< -o $@
+	@printf ${UP}${CUT}
 
 ${NAME}: ${OBJ_D} ${OBJECTS} Makefile
-	$(CC) $(OBJECTS) -o $(NAME)
+	@$(CC) $(OBJECTS) -o $(NAME)
+	@$(eval CHANGED=1)
+	@echo "$(GREEN)$(NAME) compiled!$(DEFAULT)"
 
 clean:
 	@rm -rf ${OBJ_D} 
@@ -49,3 +66,8 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+.NOTPARALLEL all:
+	@if [ $(CHANGED) -eq 0 ]; then \
+		echo "$(YELLOW)Nothing to do for all.$(DEFAULT)"; \
+	fi

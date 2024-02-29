@@ -1,22 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/18 15:16:26 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/02/29 18:39:51 by mbrousse         ###   ########.fr       */
+/*   Created: 2024/02/29 18:34:10 by mbrousse          #+#    #+#             */
+/*   Updated: 2024/02/29 18:35:46 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	main(int argc, char **argv)
-{
-	(void) argv;
-	if (argc < 5 || argc > 6)
-		return (1);
-	ft_init();
-	return (0);
-}
