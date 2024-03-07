@@ -6,7 +6,7 @@
 #    By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 00:46:08 by mbrousse          #+#    #+#              #
-#    Updated: 2024/02/29 19:25:00 by mbrousse         ###   ########.fr        #
+#    Updated: 2024/03/07 19:37:21 by mbrousse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ SOURCES	=	philo.c\
 			checker.c\
 			error.c\
 			initialization.c\
-			philo_utils.c
+			philo_utils.c\
+			atoi.c\
+			time.c
 
 OBJ_D	= .objs/
 
