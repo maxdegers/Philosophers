@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:15 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 17:59:36 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:43:03 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 void    ft_perror(t_error error)
 {
 	if (error == MALLOC)
-		write(2, "\033[1;31mError\033[0m: MALLOC Fail.\n", 27);
-	if (error == THREAD_CREATE)
-		write(2, "\033[1;31mError\033[0m: Thread creation fail.\n", 30);
-	if (error == THREAD_JOIN)
-		write(2, "\033[1;31mError\033[0m: Thread join fail.\n", 26);
-	if (error == THREAD_INIT)    
-		write(2, "\033[1;31mError\033[0m: Thread init fail.\n", 26);
+		ft_putstr_fd("\033[1;31mError\033[0m: Malloc failed.\n", 2);
+	if (error == THREAD_INIT)
+		ft_putstr_fd("\033[1;31mError\033[0m: Thread initialization failed.\n", 2);
+	if (error == MUTEX_INIT)
+		ft_putstr_fd("\033[1;31mError\033[0m: Mutex initialization failed.\n", 2);
 	if (error == ARGS_U)
-		write(2, "\033[1;31mError\033[0m: Too much arguments.\n", 27);
+		ft_putstr_fd("\033[1;31mError\033[0m: Too many arguments.\n", 2);
 	if (error == ARGS_D)
-		write(2, "\033[1;31mError\033[0m: Too few arguments.\n", 26);
+		ft_putstr_fd("\033[1;31mError\033[0m: Not enough arguments.\n", 2);
 	if (error == ARGS_N)
-		write(2, "\033[1;31mError\033[0m: invalide arguments.\n", 27);
-	if (error == MUTEX_INIT)    
-		write(2, "\033[1;31mError\033[0m: Mutex init fail.\n", 24);  
+		ft_putstr_fd("\033[1;31mError\033[0m: Invalid argument.\n", 2);
+	if (error == THREAD_CREATE)
+		ft_putstr_fd("\033[1;31mError\033[0m: Thread creation failed.\n", 2);
+	if (error == THREAD_JOIN)
+		ft_putstr_fd("\033[1;31mError\033[0m: Thread join failed.\n", 2);
+	if (error == TIME)
+		ft_putstr_fd("\033[1;31mError\033[0m: Time failed.\n", 2);
 }
 
 static void    ft_free_mutex(t_tab *tab)
@@ -58,3 +60,4 @@ void    ft_big_free(t_tab   *tab)
 	if (tab->tab_philo)
 		free(tab->tab_philo);
 }
+

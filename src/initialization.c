@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:10 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 17:38:01 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/08 23:00:15 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_set_tab(t_tab *tab, int argc, char **argv)
 {
-	if (ft_check(argc, argv))
+	if (ft_check(argc, argv) == 1)
 		return (1);
 	tab->start_tim = ft_get_time();
 	tab->n_philo = ft_atol(argv[1]);
@@ -46,7 +46,7 @@ static int	ft_set_mutex(t_tab *tab)
 	if (pthread_mutex_init(&tab->m_time, NULL))
 		return (ft_perror(THREAD_INIT), 1);
 	tab->tab_fork = malloc(tab->n_philo * sizeof(t_fork));
-	if (tab->tab_fork)
+	if (!tab->tab_fork)
 		return (ft_perror(MALLOC), 1);
 	while (i <= tab->n_philo)
 	{
@@ -63,7 +63,7 @@ static int ft_set_philo(t_tab *tab)
 
 	i = 0;
 	tab->tab_philo = malloc(tab->n_philo * sizeof(t_philo));
-	if (tab->tab_philo)
+	if (!tab->tab_philo)
 		return (ft_perror(MALLOC), 1);
 	while (i <= tab->n_philo)
 	{
@@ -85,14 +85,14 @@ static int ft_set_threads(t_tab *tab)
 	i = 0;
 	while (i < tab->n_philo)
 	{
-		if (pthread_create(&tab->tab_philo[i].p_thread, NULL, ft_routine,
-				(void *)&tab->tab_philo[i]))
+		if (pthread_create(&tab->tab_philo[i].p_thread, NULL, &ft_routine, &tab->tab_philo[i]))
 		{
 			while (i--)
 				if (pthread_join(tab->tab_philo[i].p_thread, NULL))
 					ft_perror(THREAD_JOIN);
 			return (ft_perror(THREAD_CREATE), 1);
 		}
+		write(1, "trapemogogot\n", 13);
 		i++;
 	}
 	pthread_mutex_unlock(&tab->m_ready);
@@ -105,7 +105,7 @@ static int ft_set_threads(t_tab *tab)
 
 int ft_init(t_tab *tab, int argc, char **argv)
 {
-	if (ft_set_tab(tab, argc, argv))
+	if (ft_set_tab(tab, argc, argv) == 1)
 		return (1);
 	if (ft_set_mutex(tab))
 		return (1);

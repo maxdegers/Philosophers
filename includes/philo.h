@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 00:46:55 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 17:52:58 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:39:25 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ int			ft_init(t_tab *tab, int argc, char **argv);
 // philo_utils.c
 void		ft_print(t_tab *tab, int id, t_message message);
 int			ft_dead_status(t_tab *tab);
+size_t		ft_strlen(const char *s);
+void		ft_putstr_fd(const char *s, int fd);
 // routine.c
 void		*ft_routine(void *arg);
 // time.c

@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:38:56 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 17:15:07 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:39:04 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,19 @@ int	ft_dead_status(t_tab *tab)
 	i = tab->is_dead;
 	pthread_mutex_unlock(&tab->m_print);
 	return (i);
+}
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+void	ft_putstr_fd(const char *s, int fd)
+{
+	if (s)
+		write(fd, s, ft_strlen(s));
 }
