@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:38:56 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 16:14:52 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/08 17:15:07 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void		ft_print(t_tab *tab, int id, t_message m)
 {
 	unsigned long	time;
-	static char		**message = {"died", "is eating", "is sleeping",
-			"is thinking", "has taken a fork", "Too many philosophers, set to 200"};
+	static char		*message[6] = {"died", "is eating", "is sleeping",
+			"is thinking", "has taken a fork",
+			"Too many philosophers, set to 200"};
 
 	pthread_mutex_lock(&tab->m_print);
 	time = ft_get_time() - tab->start_tim;

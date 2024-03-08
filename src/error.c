@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:15 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 15:36:12 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/08 17:59:36 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void    ft_perror(t_error error)
 		write(2, "\033[1;31mError\033[0m: Mutex init fail.\n", 24);  
 }
 
-void    ft_free_mutex(t_tab *tab)
+static void    ft_free_mutex(t_tab *tab)
 {
 	size_t	i;
 
@@ -41,7 +41,7 @@ void    ft_free_mutex(t_tab *tab)
 	{
 		while (i < tab->n_philo)
 		{
-			pthread_mutex_destroy(&tab->tab_fork[i]);
+			pthread_mutex_destroy(&tab->tab_fork[i].m_fork);
 			i++;
 		}
 	}

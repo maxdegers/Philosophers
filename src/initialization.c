@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:10 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 16:57:16 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/08 17:38:01 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ static int	ft_set_tab(t_tab *tab, int argc, char **argv)
 	if (argc == 6)
 		tab->eating_count = ft_atoi(argv[5]);
 	else
-		tab->eating_count = -1;
+		tab->eating_count = 0;
 	tab->is_dead = 0;
 	tab->is_done = 0;
 	return (0);
 }
 
-int	ft_set_mutex(t_tab *tab)
+static int	ft_set_mutex(t_tab *tab)
 {
 	size_t	i;
 
@@ -45,23 +45,25 @@ int	ft_set_mutex(t_tab *tab)
 		return (ft_perror(THREAD_INIT), 1);
 	if (pthread_mutex_init(&tab->m_time, NULL))
 		return (ft_perror(THREAD_INIT), 1);
-	if (tab->tab_fork = malloc(tab->n_philo * sizeof(t_fork)))
+	tab->tab_fork = malloc(tab->n_philo * sizeof(t_fork));
+	if (tab->tab_fork)
 		return (ft_perror(MALLOC), 1);
 	while (i <= tab->n_philo)
 	{
-		if (pthread_mutex_init(&tab->tab_fork[i], NULL))
+		if (pthread_mutex_init(&tab->tab_fork[i].m_fork, NULL))
 			return (ft_perror(MUTEX_INIT), 1);
 		i++;
 	}
 	return (0);
 }
 
-int ft_set_philo(t_tab *tab)
+static int ft_set_philo(t_tab *tab)
 {
 	size_t	i;
 
 	i = 0;
-	if (tab->tab_philo = malloc(tab->n_philo * sizeof(t_philo)))
+	tab->tab_philo = malloc(tab->n_philo * sizeof(t_philo));
+	if (tab->tab_philo)
 		return (ft_perror(MALLOC), 1);
 	while (i <= tab->n_philo)
 	{
@@ -72,9 +74,10 @@ int ft_set_philo(t_tab *tab)
 		tab->tab_philo[i].right_fork = &tab->tab_fork[(i + 1) % tab->n_philo];
 		i++;
 	}
+	return (0);
 }
 
-int ft_set_threads(t_tab *tab)
+static int ft_set_threads(t_tab *tab)
 {
 	size_t	i;
 
@@ -82,7 +85,8 @@ int ft_set_threads(t_tab *tab)
 	i = 0;
 	while (i < tab->n_philo)
 	{
-		if (pthread_create(&tab->tab_philo[i].p_thread, NULL, ft_routine, &tab->tab_philo[i]))
+		if (pthread_create(&tab->tab_philo[i].p_thread, NULL, ft_routine,
+				(void *)&tab->tab_philo[i]))
 		{
 			while (i--)
 				if (pthread_join(tab->tab_philo[i].p_thread, NULL))

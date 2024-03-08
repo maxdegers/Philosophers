@@ -6,11 +6,11 @@
 #    By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 00:46:08 by mbrousse          #+#    #+#              #
-#    Updated: 2024/03/08 16:34:05 by mbrousse         ###   ########.fr        #
+#    Updated: 2024/03/08 17:45:50 by mbrousse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SOURCES	=	philo.c\
+SRCS	=	philo.c\
 			checker.c\
 			error.c\
 			initialization.c\
@@ -18,60 +18,93 @@ SOURCES	=	philo.c\
 			atoi.c\
 			time.c\
 			routine.c\
-			forks.c
+			fork.c
+OBJS	=	$(SRCS:%.c=${OBJ_D}%.o)
 
-OBJ_D	= .objs/
+SRC_D	=	src/
 
-SRC_D	= src/
+OBJ_D	=	.objs/
 
-OBJECTS = ${SOURCES:%.c=${OBJ_D}%.o}
+HEAD	=	includes/
 
-HEADER_DIR      =       ./includes
+NAME	=	philo
 
-HEADER  =       $(HEADER_DIR)/philo.h
+CC		=	cc
 
-NAME			=	philo
+FLAGS	=	-Wall -Wextra -Werror -fsanitize=address
 
-CC 				=	cc
+RED		=	\033[1;31m
+GREEN	=	\033[1;32m
+YELLOW	=	\033[1;33m
+BLUE	=	\033[1;34m
+MAGENTA	=	\033[1;35m
+CYAN	=	\033[1;36m
+WHITE	=	\033[1;37m
+DEFAULT	=	\033[0m
+UP		=	"\033[A"
+CUT		=	"\033[K"
 
-FLAGS 			=	-Wall -Wextra -Werror
+CHANGED	=	0
 
-GREEN	  		=	 \033[1;32m
-BLUE			=	 \033[1;34m
-RED				=	 \033[1;31m
-YELLOW	 		=	 \033[1;33m
-DEFAULT			=	 \033[0m
-UP	  			=	 "\033[A"
-CUT				=	 "\033[K"
+NUM_SRCS := $(words $(SRCS) + 1)
+COMPILED_SRCS := 0
 
-CHANGED    =    0
+define print_progress
+	@echo "$(YELLOW)Compiling $(WHITE)[$(BLUE)$1$(WHITE)]...$(DEFAULT)\r"
+endef
 
-all:${NAME}
+define update_progress
+	$(eval COMPILED_SRCS := $(shell echo $$(($(COMPILED_SRCS) + 1))))
+	$(eval PROGRESS := $(shell echo $$((($(COMPILED_SRCS) * 100) / $(NUM_SRCS)))))
+	@printf ${UP}${CUT}
+	@if [ $(PROGRESS) -eq 100 ]; then \
+		echo "$(WHITE)<$(GREEN)$(PROGRESS)%$(WHITE)> $(WHITE)[$(BLUE)$1$(WHITE)] $(YELLOW)compiled.$(DEFAULT)\r"; \
+	else \
+		if [ $(PROGRESS) -lt 10 ]; then \
+			echo "$(WHITE)<  $(GREEN)$(PROGRESS)%$(WHITE)> $(WHITE)[$(BLUE)$1$(WHITE)] $(YELLOW)compiled.$(DEFAULT)\r"; \
+		else \
+			echo "$(WHITE)< $(GREEN)$(PROGRESS)%$(WHITE)> $(WHITE)[$(BLUE)$1$(WHITE)] $(YELLOW)compiled.$(DEFAULT)\r"; \
+		fi \
+	fi
+endef
+
+all		:	${NAME}
+
+${OBJS}	:	${OBJ_D}%.o: ${SRC_D}%.c includes/philo.h
+	@$(call print_progress,$<)
+	@${CC} ${FLAGS} -I${HEAD} -c $< -o $@
+	@$(call update_progress,$<)
+
+${NAME}	:	${OBJ_D} ${OBJS} Makefile includes/philo.h
+	@echo "$(YELLOW)Compiling $(WHITE)[$(BLUE)$(NAME)$(WHITE)]...$(DEFAULT)"
+	@${CC} ${FLAGS} ${OBJS} -pthread -lpthread -I${HEAD} -o ${NAME}
+	@$(eval CHANGED=1)
+	@printf ${UP}${CUT}
+	@echo "$(WHITE)<$(GREEN)100%$(WHITE)> [$(CYAN)$(NAME)$(WHITE)] $(GREEN)compiled.$(DEFAULT)"
 
 ${OBJ_D}:
 	@mkdir -p ${OBJ_D}
-	
-${OBJECTS} : ${OBJ_D}%.o: ${SRC_D}%.c  ${HEADER} Makefile
-	@echo "$(YELLOW)Compiling [$<]$(DEFAULT)"
-	@${CC} ${FLAGS} -I $(HEADER_DIR) -c $< -o $@
-	@printf ${UP}${CUT}
 
-${NAME}: ${OBJ_D} ${OBJECTS} Makefile
-	@$(CC) $(OBJECTS) -lpthread -o $(NAME)
-	@$(eval CHANGED=1)
-	@echo "$(GREEN)$(NAME) compiled!$(DEFAULT)"
+clean	:
+	@echo "Cleaning $(WHITE)[$(RED)$(NAME)$(WHITE)]...$(DEFAULT)"
+	@rm -rf ${OBJ_D}
+	@echo "$(WHITE)[$(RED)$(OBJ_D)$(WHITE)] $(RED)deleted.$(DEFAULT)"
 
-clean:
-	@rm -rf ${OBJ_D} 
-
-fclean: clean
+fclean	:
+	@echo "F***ing-Cleaning $(WHITE)[$(RED)$(NAME)$(WHITE)]...$(DEFAULT)"
+	@rm -rf ${OBJ_D}
+	@echo "$(WHITE)[$(RED)$(OBJ_D)$(WHITE)] $(RED)deleted.$(DEFAULT)"
 	@rm -f ${NAME}
+	@echo "$(WHITE)[$(RED)$(NAME)$(WHITE)] $(RED)deleted.$(DEFAULT)"
 
-re: fclean all
+re		:	fclean .internal_separate all
 
-.PHONY: all clean fclean re
+.PHONY	:	all clean fclean re
 
 .NOTPARALLEL all:
 	@if [ $(CHANGED) -eq 0 ]; then \
-		echo "$(YELLOW)Nothing to do for all.$(DEFAULT)"; \
+		echo "$(YELLOW)Nothing to be done for $(WHITE)[$(CYAN)$(NAME)$(WHITE)].$(DEFAULT)"; \
 	fi
+
+.internal_separate	:
+	@echo "$(WHITE)------------------------------------------------------------$(DEFAULT)"
