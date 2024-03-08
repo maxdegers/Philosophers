@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 00:46:55 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/07 19:36:07 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/07 23:10:56 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum e_error
 	THREAD_CREATE,
 	THREAD_JOIN,
 	THREAD_INIT,
+	MUTEX_INIT,
 	ARGS_U,
 	ARGS_D,
 	ARGS_N,
@@ -70,6 +71,8 @@ int			ft_atoi(const char *str);
 // checker.c
 int			ft_check(int argc, char **argv);
 // error.c
-void    ft_perror(t_error error);
-void    ft_big_free(t_tab   tab);
+void    	ft_perror(t_error error);
+void    	ft_big_free(t_tab   tab);
+// time.c
+long		ft_get_time(void);
 #endif

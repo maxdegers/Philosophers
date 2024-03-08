@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:10 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/07 19:40:08 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/07 23:11:54 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,19 @@ static int	ft_set_tab(t_tab *tab, int argc, char **argv)
 
 int	ft_set_mutex(t_tab *tab)
 {
+	size_t	i;
+
 	if (pthread_mutex_init(&tab->m_print, NULL))
 		return (ft_perror(THREAD_INIT), 1);
+	if (tab->tab_fork = malloc(tab->n_philo * sizeof(t_fork)))
+		return (ft_perror(MALLOC), 1);
+	while (i <= tab->n_philo)
+	{
+		if (pthread_mutex_init(&tab->tab_fork[i], NULL))
+			return (ft_perror(MUTEX_INIT), 1);
+		i++;
+	}
+	
 	return (0);
+
 }
