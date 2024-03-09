@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:15 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 14:55:27 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:13:29 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,8 @@ static void	ft_free_mutex(t_tab *tab)
 	}
 	if (tab->tab_mutex)
 	{
-		i = 0;
-		while (i <= M_TIME)
-		{
-			pthread_mutex_destroy(&tab->tab_mutex[i]);
-			i++;
-		}
+		pthread_mutex_destroy(&tab->tab_mutex[M_PRINT]);
+		pthread_mutex_destroy(&tab->tab_mutex[1]);
 	}
 }
 

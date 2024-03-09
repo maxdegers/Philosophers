@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:37:46 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 15:00:18 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:12:13 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static int	ft_eat(t_philo *philo)
 	if (philo->id % 2)
 	{
 		if (ft_ltake_fork(philo))
-			if (ft_get_time(philo->tab) - philo->last_meal > philo->tab->tt_die)
+			if (ft_get_time() - philo->last_meal > philo->tab->tt_die)
 				return (ft_print(philo->tab, philo->id, DEAD), 1);
 	}
 	else
 		if (ft_rtake_fork(philo))
-			if (ft_get_time(philo->tab) - philo->last_meal > philo->tab->tt_die)
+			if (ft_get_time() - philo->last_meal > philo->tab->tt_die)
 				return (ft_print(philo->tab, philo->id, DEAD), 1);
-	philo->last_meal = ft_get_time(philo->tab);
+	philo->last_meal = ft_get_time();
 	ft_print(philo->tab, philo->id, EATING);
 	ft_usleep(philo, philo->tab->tt_eat);
-	philo->last_meal = ft_get_time(philo->tab);
+	philo->last_meal = ft_get_time();
 	philo->eating_count++;
 	ft_rrelease_fork(philo);
 	ft_lrelease_fork(philo);

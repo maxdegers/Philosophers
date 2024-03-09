@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 00:46:55 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 15:02:02 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:30:21 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <limits.h>
 
 # define MAX_PHILO 200
+# define MAX_PHILO_STR "\033[1;34mToo many philosophers,\
+ set to \033[1;33m200\033[0m\n"
 
 struct	s_tab;
 
@@ -31,19 +33,18 @@ struct	s_fork;
 typedef enum e_message
 {
 	DEAD,
+	END,
+	PHILO,
 	EATING,
 	SLEEPING,
 	THINKING,
 	FORK,
-	END,
-	M_PHILO,
 }	t_message;
 
 typedef enum e_mutex
 {
 	M_PRINT,
 	M_READY,
-	M_TIME,
 }	t_mutex;
 
 typedef enum e_error
@@ -114,6 +115,6 @@ void		ft_putstr_fd(const char *s, int fd);
 // routine.c
 void		*ft_routine(void *arg);
 // time.c
-long		ft_get_time(t_tab *tab);
+long		ft_get_time(void);
 void		ft_usleep(t_philo *philo, long long time);
 #endif

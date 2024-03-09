@@ -6,7 +6,7 @@
 #    By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 00:46:08 by mbrousse          #+#    #+#              #
-#    Updated: 2024/03/09 12:20:31 by mbrousse         ###   ########.fr        #
+#    Updated: 2024/03/09 15:31:20 by mbrousse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,12 +70,12 @@ endef
 
 all		:	${NAME}
 
-${OBJS}	:	${OBJ_D}%.o: ${SRC_D}%.c includes/philo.h
+${OBJS}	:	${OBJ_D}%.o: ${SRC_D}%.c includes/philo.h  Makefile 
 	@$(call print_progress,$<)
 	@${CC} ${FLAGS} -I${HEAD} -c $< -o $@
 	@$(call update_progress,$<)
 
-${NAME}	:	${OBJ_D} ${OBJS} Makefile includes/philo.h
+${NAME}	:	${OBJ_D} ${OBJS} includes/philo.h
 	@echo "$(YELLOW)Compiling $(WHITE)[$(BLUE)$(NAME)$(WHITE)]...$(DEFAULT)"
 	@${CC} ${FLAGS} ${OBJS} -pthread -lpthread -I${HEAD} -o ${NAME}
 	@$(eval CHANGED=1)
