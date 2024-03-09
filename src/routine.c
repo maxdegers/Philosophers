@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:37:46 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 22:59:03 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:20:03 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static int	ft_eat(t_philo *philo)
 	if (philo->id % 2)
 	{
 		if (ft_ltake_fork(philo))
-			if (ft_get_time() - philo->last_meal > philo->tab->tt_die)
+			if (ft_get_time(philo->tab) - philo->last_meal > philo->tab->tt_die)
 				return (ft_print(philo->tab, philo->id, DEAD), 1);
 	}
 	else
 		if (ft_rtake_fork(philo))
-			if (ft_get_time() - philo->last_meal > philo->tab->tt_die)
+			if (ft_get_time(philo->tab) - philo->last_meal > philo->tab->tt_die)
 				return (ft_print(philo->tab, philo->id, DEAD), 1);
-	philo->last_meal = ft_get_time();
+	philo->last_meal = ft_get_time(philo->tab);
 	ft_print(philo->tab, philo->id, EATING);
 	ft_usleep(philo, philo->tab->tt_eat);
-	philo->last_meal = ft_get_time();
+	philo->last_meal = ft_get_time(philo->tab);
 	philo->eating_count++;
 	ft_rrelease_fork(philo);
 	ft_lrelease_fork(philo);
@@ -45,8 +45,8 @@ void	*ft_routine(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&philo->tab->m_ready);
-	pthread_mutex_unlock(&philo->tab->m_ready);
+	pthread_mutex_lock(&philo->tab->tab_mutex[M_READY]);
+	pthread_mutex_unlock(&philo->tab->tab_mutex[M_READY]);
 	while ((philo->tab->eating_count == 0 || philo->eating_count < philo->tab->eating_count) 
 			&& ft_dead_status(philo->tab) == 0)
 	{

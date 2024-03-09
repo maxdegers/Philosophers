@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 00:46:55 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 22:39:25 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:15:19 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ typedef enum e_message
 	END,
 	M_PHILO,
 }	t_message;
+
+typedef enum e_mutex
+{
+	M_PRINT,
+	M_READY,
+	M_TIME,
+}	t_mutex;
 
 typedef enum e_error
 {
@@ -75,9 +82,7 @@ typedef struct	s_tab
 	int				is_done;
 	t_philo			*tab_philo;
 	struct	s_fork	*tab_fork;
-	pthread_mutex_t m_ready;
-	pthread_mutex_t	m_print;
-	pthread_mutex_t	m_time;
+	pthread_mutex_t	*tab_mutex;
 }		t_tab;
 
 typedef struct	s_fork
@@ -109,6 +114,6 @@ void		ft_putstr_fd(const char *s, int fd);
 // routine.c
 void		*ft_routine(void *arg);
 // time.c
-long		ft_get_time(void);
+long		ft_get_time(t_tab *tab);
 void		ft_usleep(t_philo *philo, long long time);
 #endif

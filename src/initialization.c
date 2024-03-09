@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:10 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 23:00:15 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:15:02 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	ft_set_tab(t_tab *tab, int argc, char **argv)
 {
 	if (ft_check(argc, argv) == 1)
 		return (1);
-	tab->start_tim = ft_get_time();
+	tab->start_tim = ft_get_time(tab);
 	tab->n_philo = ft_atol(argv[1]);
 	if (tab->n_philo > MAX_PHILO)
 	{
@@ -39,15 +39,20 @@ static int	ft_set_mutex(t_tab *tab)
 {
 	size_t	i;
 
-	if (pthread_mutex_init(&tab->m_print, NULL))
-		return (ft_perror(THREAD_INIT), 1);
-	if (pthread_mutex_init(&tab->m_ready, NULL))
-		return (ft_perror(THREAD_INIT), 1);
-	if (pthread_mutex_init(&tab->m_time, NULL))
-		return (ft_perror(THREAD_INIT), 1);
+	i = 0;
+	tab->tab_mutex = malloc( 3 * sizeof(pthread_mutex_t));
+	if (!tab->tab_mutex)
+		return (ft_perror(MALLOC), 1);
+	while (i <= M_TIME)
+	{
+		if (pthread_mutex_init(&tab->tab_mutex[i], NULL))
+			return (ft_perror(MUTEX_INIT), 1);
+		i++;
+	}
 	tab->tab_fork = malloc(tab->n_philo * sizeof(t_fork));
 	if (!tab->tab_fork)
 		return (ft_perror(MALLOC), 1);
+	i = 0;
 	while (i <= tab->n_philo)
 	{
 		if (pthread_mutex_init(&tab->tab_fork[i].m_fork, NULL))
@@ -81,7 +86,7 @@ static int ft_set_threads(t_tab *tab)
 {
 	size_t	i;
 
-	pthread_mutex_lock(&tab->m_ready);
+	pthread_mutex_lock(&tab->tab_mutex[M_READY]);
 	i = 0;
 	while (i < tab->n_philo)
 	{
@@ -95,7 +100,7 @@ static int ft_set_threads(t_tab *tab)
 		write(1, "trapemogogot\n", 13);
 		i++;
 	}
-	pthread_mutex_unlock(&tab->m_ready);
+	pthread_mutex_unlock(&tab->tab_mutex[M_READY]);
 	i = -1;
 	while (++i < tab->n_philo)
 		if (pthread_join(tab->tab_philo[i].p_thread, NULL))

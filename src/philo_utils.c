@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:38:56 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 22:39:04 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:15:33 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void		ft_print(t_tab *tab, int id, t_message m)
 			"is thinking", "has taken a fork",
 			"Too many philosophers, set to 200"};
 
-	pthread_mutex_lock(&tab->m_print);
-	time = ft_get_time() - tab->start_tim;
+	pthread_mutex_lock(&tab->tab_mutex[M_PRINT]);
+	time = ft_get_time(tab) - tab->start_tim;
 	if (m == DEAD)
 		printf("%lu \033[1;36m%d \033[1;31m%s\033[0m\n", time, id + 1, message[m]);
 	if (m == END)
@@ -29,15 +29,15 @@ void		ft_print(t_tab *tab, int id, t_message m)
 		printf("\033[1;34m%s\033[0m\n", message[m]);
 	else
 		printf("%lu \033[1;36m%d \033[1;33m%s\033[0m\n", time, id + 1, message[m]);
-	pthread_mutex_unlock(&tab->m_print);
+	pthread_mutex_unlock(&tab->tab_mutex[M_PRINT]);
 }
 int	ft_dead_status(t_tab *tab)
 {
 	int i;
 
-	pthread_mutex_lock(&tab->m_print);
+	pthread_mutex_lock(&tab->tab_mutex[M_PRINT]);
 	i = tab->is_dead;
-	pthread_mutex_unlock(&tab->m_print);
+	pthread_mutex_unlock(&tab->tab_mutex[M_PRINT]);
 	return (i);
 }
 size_t	ft_strlen(const char *s)
