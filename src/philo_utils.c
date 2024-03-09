@@ -6,40 +6,43 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:38:56 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 12:15:33 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:54:30 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void		ft_print(t_tab *tab, int id, t_message m)
+void	ft_print(t_tab *tab, int id, t_message m)
 {
 	unsigned long	time;
-	static char		*message[6] = {"died", "is eating", "is sleeping",
-			"is thinking", "has taken a fork",
-			"Too many philosophers, set to 200"};
+	static char		*mess[6] = {"died", "is eating", "is sleeping",
+		"is thinking", "has taken a fork",
+		"Too many philosophers, set to 200"};
 
 	pthread_mutex_lock(&tab->tab_mutex[M_PRINT]);
 	time = ft_get_time(tab) - tab->start_tim;
 	if (m == DEAD)
-		printf("%lu \033[1;36m%d \033[1;31m%s\033[0m\n", time, id + 1, message[m]);
+		printf("%lu \033[1;36m%d \033[1;31m%s\033[0m\n", time, id + 1, mess[m]);
 	if (m == END)
-		printf("\033[1;32mAll philosophers have eaten %ld times\033[0m\n", tab->eating_count);
+		printf("\033[1;32mAll philosophers have eaten %ld times\033[0m\n",
+			tab->eating_count);
 	if (m == M_PHILO)
-		printf("\033[1;34m%s\033[0m\n", message[m]);
+		printf("\033[1;34m%s\033[0m\n", mess[m]);
 	else
-		printf("%lu \033[1;36m%d \033[1;33m%s\033[0m\n", time, id + 1, message[m]);
+		printf("%lu \033[1;36m%d \033[1;33m%s\033[0m\n", time, id + 1, mess[m]);
 	pthread_mutex_unlock(&tab->tab_mutex[M_PRINT]);
 }
+
 int	ft_dead_status(t_tab *tab)
 {
-	int i;
+	int	i;
 
 	pthread_mutex_lock(&tab->tab_mutex[M_PRINT]);
 	i = tab->is_dead;
 	pthread_mutex_unlock(&tab->tab_mutex[M_PRINT]);
 	return (i);
 }
+
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;

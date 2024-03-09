@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:10 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 12:15:02 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:56:54 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	ft_set_mutex(t_tab *tab)
 	size_t	i;
 
 	i = 0;
-	tab->tab_mutex = malloc( 3 * sizeof(pthread_mutex_t));
+	tab->tab_mutex = malloc(3 * sizeof(pthread_mutex_t));
 	if (!tab->tab_mutex)
 		return (ft_perror(MALLOC), 1);
 	while (i <= M_TIME)
@@ -62,7 +62,7 @@ static int	ft_set_mutex(t_tab *tab)
 	return (0);
 }
 
-static int ft_set_philo(t_tab *tab)
+static int	ft_set_philo(t_tab *tab)
 {
 	size_t	i;
 
@@ -82,7 +82,7 @@ static int ft_set_philo(t_tab *tab)
 	return (0);
 }
 
-static int ft_set_threads(t_tab *tab)
+static int	ft_set_threads(t_tab *tab)
 {
 	size_t	i;
 
@@ -90,7 +90,8 @@ static int ft_set_threads(t_tab *tab)
 	i = 0;
 	while (i < tab->n_philo)
 	{
-		if (pthread_create(&tab->tab_philo[i].p_thread, NULL, &ft_routine, &tab->tab_philo[i]))
+		if (pthread_create(&tab->tab_philo[i].p_thread,
+				NULL, &ft_routine, &tab->tab_philo[i]))
 		{
 			while (i--)
 				if (pthread_join(tab->tab_philo[i].p_thread, NULL))
@@ -108,7 +109,7 @@ static int ft_set_threads(t_tab *tab)
 	return (0);
 }
 
-int ft_init(t_tab *tab, int argc, char **argv)
+int	ft_init(t_tab *tab, int argc, char **argv)
 {
 	if (ft_set_tab(tab, argc, argv) == 1)
 		return (1);

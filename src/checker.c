@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:17 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/08 22:34:25 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:58:41 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	ft_is_num(const char *str)
 	}
 	return (0);
 }
+
 int	ft_check(int argc, char **argv)
 {
 	if (argc > 6)
@@ -34,7 +35,7 @@ int	ft_check(int argc, char **argv)
 		return (ft_perror(ARGS_D), 1);
 	while (argc > 1)
 	{
-		if ((ft_is_num(argv[argc-1]) == 1) || ft_atol(argv[argc-1]) < 1)
+		if ((ft_is_num(argv[argc - 1]) == 1) || ft_atol(argv[argc - 1]) < 1)
 			return (ft_perror(ARGS_N), 1);
 		argc--;
 	}

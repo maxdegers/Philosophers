@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 00:46:55 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 12:15:19 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:02:02 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,18 @@ typedef enum e_error
 	TIME,
 }	t_error;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				id;
 	struct s_tab	*tab;
 	pthread_t		p_thread;
 	size_t			eating_count;
 	long long		last_meal;
-	struct	s_fork	*left_fork;
-	struct	s_fork	*right_fork;
+	struct s_fork	*left_fork;
+	struct s_fork	*right_fork;
 }				t_philo;
 
-typedef struct	s_tab
+typedef struct s_tab
 {
 	unsigned long	start_tim;
 	size_t			n_philo;
@@ -81,11 +81,11 @@ typedef struct	s_tab
 	int				is_dead;
 	int				is_done;
 	t_philo			*tab_philo;
-	struct	s_fork	*tab_fork;
+	struct s_fork	*tab_fork;
 	pthread_mutex_t	*tab_mutex;
 }		t_tab;
 
-typedef struct	s_fork
+typedef struct s_fork
 {
 	int				owner;
 	pthread_mutex_t	m_fork;
@@ -97,8 +97,8 @@ int			ft_atoi(const char *str);
 // checker.c
 int			ft_check(int argc, char **argv);
 // error.c
-void    	ft_perror(t_error error);
-void    	ft_big_free(t_tab *tab);
+void		ft_perror(t_error error);
+void		ft_big_free(t_tab *tab);
 // fork.c
 int			ft_ltake_fork(t_philo *philo);
 int			ft_rtake_fork(t_philo *philo);

@@ -6,20 +6,22 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:15 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 12:22:23 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:55:27 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    ft_perror(t_error error)
+void	ft_perror(t_error error)
 {
 	if (error == MALLOC)
 		ft_putstr_fd("\033[1;31mError\033[0m: Malloc failed.\n", 2);
 	if (error == THREAD_INIT)
-		ft_putstr_fd("\033[1;31mError\033[0m: Thread initialization failed.\n", 2);
+		ft_putstr_fd("\033[1;31mError\033[0m: Thread initialization failed.\n",
+			2);
 	if (error == MUTEX_INIT)
-		ft_putstr_fd("\033[1;31mError\033[0m: Mutex initialization failed.\n", 2);
+		ft_putstr_fd("\033[1;31mError\033[0m: Mutex initialization failed.\n",
+			2);
 	if (error == ARGS_U)
 		ft_putstr_fd("\033[1;31mError\033[0m: Too many arguments.\n", 2);
 	if (error == ARGS_D)
@@ -34,7 +36,7 @@ void    ft_perror(t_error error)
 		ft_putstr_fd("\033[1;31mError\033[0m: Time failed.\n", 2);
 }
 
-static void    ft_free_mutex(t_tab *tab)
+static void	ft_free_mutex(t_tab *tab)
 {
 	size_t	i;
 
@@ -58,7 +60,7 @@ static void    ft_free_mutex(t_tab *tab)
 	}
 }
 
-void    ft_big_free(t_tab   *tab)
+void	ft_big_free(t_tab *tab)
 {
 	ft_free_mutex(tab);
 	if (tab->tab_fork)
@@ -68,4 +70,3 @@ void    ft_big_free(t_tab   *tab)
 	if (tab->tab_mutex)
 		free(tab->tab_mutex);
 }
-
