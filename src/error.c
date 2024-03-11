@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:15 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/11 14:17:35 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:24:11 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static void	ft_free_mutex(t_tab *tab)
 
 void	ft_big_free(t_tab *tab)
 {
+	if (tab == NULL)
+		return ;
 	ft_free_mutex(tab);
 	if (tab->tab_fork != NULL)
 		free(tab->tab_fork);

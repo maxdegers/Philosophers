@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:16:26 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 14:55:41 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:26:39 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@ int	main(int argc, char **argv)
 
 	if (ft_init(&tab, argc, argv))
 		return (ft_big_free(&tab), 1);
+	ft_big_free(&tab);
 	return (0);
 }

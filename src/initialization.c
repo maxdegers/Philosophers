@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:10 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/11 14:07:48 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:25:56 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_set_tab(t_tab *tab, int argc, char **argv)
 {
 	if (ft_check(argc, argv) == 1)
-		return (1);
+		exit(1);
 	tab->n_philo = ft_atol(argv[1]);
 	if (tab->n_philo > MAX_PHILO)
 	{
