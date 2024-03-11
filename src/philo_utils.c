@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:38:56 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 15:18:56 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:21:44 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,26 @@ void	ft_print(t_tab *tab, int id, t_message m)
 {
 	unsigned long	time;
 	static char		*mess[6] = {
-		"has died",
-		"has finished eating",
-		"is thinking",
-		"is sleeping",
-		"is eating",
-		"has taken a fork"};
+		"has died", "has finished eating", "is thinking",
+		"is sleeping", "is eating", "has taken a fork"};
 
 	pthread_mutex_lock(&tab->tab_mutex[M_PRINT]);
-	time = ft_get_time() - tab->start_tim;
-	if (m == DEAD)
-		printf("%lu \033[1;36m%d \033[1;31m%s\033[0m\n", time, id + 1, mess[m]);
-	if (m == END)
-		printf("\033[1;32mAll philosophers have eaten %ld times\033[0m\n",
-			tab->eating_count);
-	if (m == PHILO)
-		printf("\033[1;34m%s\033[0m\n", mess[m]);
-	else
-		printf("%lu \033[1;36m%d \033[1;33m%s\033[0m\n", time, id + 1, mess[m]);
+	if (tab->is_dead == 0)
+	{
+		time = ft_get_time() - tab->start_tim;
+		if (m == DEAD)
+		{
+			tab->is_dead = 1;
+			printf("%lu \033[1;36m%d \033[1;31m%s\033[0m\n",
+				time, id + 1, mess[m]);
+		}
+		else if (m == END)
+			printf("\033[1;32mAll philosophers have eaten %ld times\033[0m\n",
+				tab->eating_count);
+		else
+			printf("%lu \033[1;36m%d \033[1;33m%s\033[0m\n",
+				time, id + 1, mess[m]);
+	}
 	pthread_mutex_unlock(&tab->tab_mutex[M_PRINT]);
 }
 
@@ -41,9 +43,9 @@ int	ft_dead_status(t_tab *tab)
 {
 	int	i;
 
-	pthread_mutex_lock(&tab->tab_mutex[M_PRINT]);
+	pthread_mutex_lock(&tab->tab_mutex[M_DEAD]);
 	i = tab->is_dead;
-	pthread_mutex_unlock(&tab->tab_mutex[M_PRINT]);
+	pthread_mutex_unlock(&tab->tab_mutex[M_DEAD]);
 	return (i);
 }
 

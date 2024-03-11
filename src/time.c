@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 19:38:12 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 15:09:59 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:23:51 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_usleep(t_philo *philo, long long time)
 		if (c_time - philo->last_meal > philo->tab->tt_die)
 		{
 			ft_print(philo->tab, philo->id, DEAD);
-			philo->tab->is_dead = 1;
 			return ;
 		}
 		c_time = ft_get_time();

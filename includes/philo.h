@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 00:46:55 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 15:30:21 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/09 16:58:42 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ typedef enum e_message
 {
 	DEAD,
 	END,
-	PHILO,
-	EATING,
-	SLEEPING,
 	THINKING,
+	SLEEPING,
+	EATING,
 	FORK,
 }	t_message;
 
@@ -45,6 +44,7 @@ typedef enum e_mutex
 {
 	M_PRINT,
 	M_READY,
+	M_DEAD,
 }	t_mutex;
 
 typedef enum e_error
@@ -69,7 +69,7 @@ typedef struct s_philo
 	long long		last_meal;
 	struct s_fork	*left_fork;
 	struct s_fork	*right_fork;
-}				t_philo;
+}	t_philo;
 
 typedef struct s_tab
 {
@@ -84,13 +84,13 @@ typedef struct s_tab
 	t_philo			*tab_philo;
 	struct s_fork	*tab_fork;
 	pthread_mutex_t	*tab_mutex;
-}		t_tab;
+}	t_tab;
 
 typedef struct s_fork
 {
 	int				owner;
 	pthread_mutex_t	m_fork;
-}		t_fork;
+}	t_fork;
 
 // atoi.c
 long int	ft_atol(const char *str);
@@ -103,8 +103,8 @@ void		ft_big_free(t_tab *tab);
 // fork.c
 int			ft_ltake_fork(t_philo *philo);
 int			ft_rtake_fork(t_philo *philo);
-int			ft_lrelease_fork(t_philo *philo);
-int			ft_rrelease_fork(t_philo *philo);
+void		ft_lrelease_fork(t_philo *philo);
+void		ft_rrelease_fork(t_philo *philo);
 // initialization.c
 int			ft_init(t_tab *tab, int argc, char **argv);
 // philo_utils.c
