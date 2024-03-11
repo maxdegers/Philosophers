@@ -6,7 +6,7 @@
 #    By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 00:46:08 by mbrousse          #+#    #+#              #
-#    Updated: 2024/03/11 14:09:00 by mbrousse         ###   ########.fr        #
+#    Updated: 2024/03/11 15:09:30 by mbrousse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS	=	philo.c\
 			time.c\
 			routine.c\
 			fork.c
+
 OBJS	=	$(SRCS:%.c=${OBJ_D}%.o)
 
 SRC_D	=	src/

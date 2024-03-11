@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 00:46:55 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 16:58:42 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/11 15:19:41 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_philo
 
 typedef struct s_tab
 {
-	unsigned long	start_tim;
+	long long		start_tim;
 	size_t			n_philo;
 	long			tt_die;
 	long			tt_eat;
