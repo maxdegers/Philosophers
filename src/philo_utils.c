@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:38:56 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 17:21:44 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:01:50 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	ft_print(t_tab *tab, int id, t_message m)
 		time = ft_get_time() - tab->start_tim;
 		if (m == DEAD)
 		{
+			pthread_mutex_lock(&tab->tab_mutex[M_DEAD]);
 			tab->is_dead = 1;
+			pthread_mutex_unlock(&tab->tab_mutex[M_DEAD]);
 			printf("%lu \033[1;36m%d \033[1;31m%s\033[0m\n",
 				time, id + 1, mess[m]);
 		}

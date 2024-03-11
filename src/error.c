@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:15 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 15:13:29 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:17:35 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	ft_free_mutex(t_tab *tab)
 	size_t	i;
 
 	i = 0;
-	if (tab->tab_fork)
+	if (tab->tab_fork != NULL)
 	{
 		while (i < tab->n_philo)
 		{
@@ -49,20 +49,24 @@ static void	ft_free_mutex(t_tab *tab)
 			i++;
 		}
 	}
-	if (tab->tab_mutex)
+	if (tab->tab_mutex != NULL)
 	{
-		pthread_mutex_destroy(&tab->tab_mutex[M_PRINT]);
-		pthread_mutex_destroy(&tab->tab_mutex[1]);
+		i = 0;
+		while (i <= M_DEAD)
+		{
+			pthread_mutex_destroy(&tab->tab_mutex[i]);
+			i++;
+		}
 	}
 }
 
 void	ft_big_free(t_tab *tab)
 {
 	ft_free_mutex(tab);
-	if (tab->tab_fork)
+	if (tab->tab_fork != NULL)
 		free(tab->tab_fork);
-	if (tab->tab_philo)
+	if (tab->tab_philo != NULL)
 		free(tab->tab_philo);
-	if (tab->tab_mutex)
+	if (tab->tab_mutex != NULL)
 		free(tab->tab_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:10 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/09 17:17:08 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:07:48 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static int	ft_set_mutex(t_tab *tab)
 	i = 0;
 	while (i < tab->n_philo)
 	{
+		tab->tab_fork[i].owner = -1;
 		if (pthread_mutex_init(&tab->tab_fork[i].m_fork, NULL))
 			return (ft_perror(MUTEX_INIT), 1);
 		i++;

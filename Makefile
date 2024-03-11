@@ -6,7 +6,7 @@
 #    By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/19 00:46:08 by mbrousse          #+#    #+#              #
-#    Updated: 2024/03/09 15:52:33 by mbrousse         ###   ########.fr        #
+#    Updated: 2024/03/11 14:09:00 by mbrousse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ NAME	=	philo
 
 CC		=	cc
 
-FLAGS	=	-Wall -Wextra -Werror -g3 #-fsanitize=address
+FLAGS	=	-Wall -Wextra -Werror #-fsanitize=address
 
 RED		=	\033[1;31m
 GREEN	=	\033[1;32m
