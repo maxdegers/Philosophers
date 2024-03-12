@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:10 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/11 14:25:56 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:04:31 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static int	ft_set_tab(t_tab *tab, int argc, char **argv)
 	tab->tt_die = ft_atol(argv[2]);
 	tab->tt_eat = ft_atol(argv[3]);
 	tab->tt_sleep = ft_atol(argv[4]);
+	tab->tt_think = 0;
+	if ((tab->n_philo % 2 == 0) && (tab->tt_eat > tab->tt_sleep))
+		tab->tt_think = 1 + (tab->tt_eat - tab->tt_sleep);
 	if (argc == 6)
 		tab->eating_count = ft_atoi(argv[5]);
 	else
@@ -76,7 +79,7 @@ static int	ft_set_philo(t_tab *tab)
 		tab->tab_philo[i].tab = tab;
 		tab->tab_philo[i].eating_count = 0;
 		tab->tab_philo[i].left_fork = &tab->tab_fork[i];
-		tab->tab_philo[i].last_meal = 0;
+		tab->tab_philo[i].last_meal = ft_get_time();
 		tab->tab_philo[i].right_fork = &tab->tab_fork[(i + 1) % tab->n_philo];
 		i++;
 	}
@@ -107,6 +110,7 @@ static int	ft_set_threads(t_tab *tab)
 	while (++i < tab->n_philo)
 		if (pthread_join(tab->tab_philo[i].p_thread, NULL))
 			return (ft_perror(THREAD_JOIN), 1);
+	ft_end(tab);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:37:46 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/11 15:28:52 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:03:23 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ static int	ft_eat(t_philo *philo)
 	if (philo->id % 2)
 	{
 		while (!ft_ltake_fork(philo))
-			if ((philo->tab->start_tim - philo->last_meal) > philo->tab->tt_die)
+			if (ft_get_time() - philo->last_meal > philo->tab->tt_die)
 				return (ft_print(philo->tab, philo->id, DEAD), 1);
 		while (!ft_rtake_fork(philo))
-			if ((philo->tab->start_tim - philo->last_meal) > philo->tab->tt_die)
+			if (ft_get_time() - philo->last_meal > philo->tab->tt_die)
 				return (ft_print(philo->tab, philo->id, DEAD), 1);
 	}
 	else
 	{
 		while (!ft_rtake_fork(philo))
-			if ((philo->tab->start_tim - philo->last_meal) > philo->tab->tt_die)
+			if (ft_get_time() - philo->last_meal > philo->tab->tt_die)
 				return (ft_print(philo->tab, philo->id, DEAD), 1);
 		while (!ft_ltake_fork(philo))
-			if ((philo->tab->start_tim - philo->last_meal) > philo->tab->tt_die)
+			if (ft_get_time() - philo->last_meal > philo->tab->tt_die)
 				return (ft_print(philo->tab, philo->id, DEAD), 1);
 	}
 	philo->last_meal = ft_get_time();
@@ -54,13 +54,19 @@ void	*ft_routine(void *arg)
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->tab->tab_mutex[M_READY]);
 	pthread_mutex_unlock(&philo->tab->tab_mutex[M_READY]);
-	while (1)
+	if (philo->id % 2)
+		ft_usleep(philo, philo->tab->tt_think);
+	while ((philo->tab->eating_count == 0
+			|| philo->eating_count < philo->tab->eating_count)
+		&& ft_dead_status(philo->tab) == 0)
 	{
 		if (ft_eat(philo))
 			break ;
 		if (ft_dead_status(philo->tab))
 			break ;
 		if (ft_sleep(philo))
+			break ;
+		if (ft_dead_status(philo->tab))
 			break ;
 		ft_print(philo->tab, philo->id, THINKING);
 	}

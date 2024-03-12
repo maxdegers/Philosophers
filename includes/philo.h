@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 00:46:55 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/11 15:19:41 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:05:29 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,12 @@ typedef struct s_philo
 
 typedef struct s_tab
 {
-	long long		start_tim;
+	unsigned long	start_tim;
 	size_t			n_philo;
 	long			tt_die;
 	long			tt_eat;
 	long			tt_sleep;
+	long			tt_think;
 	size_t			eating_count;
 	int				is_dead;
 	int				is_done;
@@ -111,6 +112,7 @@ int			ft_init(t_tab *tab, int argc, char **argv);
 void		ft_print(t_tab *tab, int id, t_message message);
 int			ft_dead_status(t_tab *tab);
 size_t		ft_strlen(const char *s);
+void		ft_end(t_tab *tab);
 void		ft_putstr_fd(const char *s, int fd);
 // routine.c
 void		*ft_routine(void *arg);

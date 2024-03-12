@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:38:56 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/11 14:01:50 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:16:24 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,21 @@ void	ft_putstr_fd(const char *s, int fd)
 {
 	if (s)
 		write(fd, s, ft_strlen(s));
+}
+
+void	ft_end(t_tab *tab)
+{
+	size_t	i;
+
+	i = 0;
+	if (tab->is_dead != 1)
+	{
+		while (i < tab->n_philo
+			&& (tab->eating_count == tab->tab_philo[i].eating_count))
+		{
+			i++;
+		}
+		if (i == tab->n_philo)
+			ft_print(tab, 0, END);
+	}
 }
