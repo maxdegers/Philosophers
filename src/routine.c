@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:37:46 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/14 15:38:06 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:43:42 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	*ft_routine(void *arg)
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->tab->tab_mutex[M_READY]);
 	pthread_mutex_unlock(&philo->tab->tab_mutex[M_READY]);
-	if (philo->id % 2)
-		ft_usleep(philo, philo->tab->tt_think);
+	// if (philo->id % 2)
+	// 	ft_usleep(philo, philo->tab->tt_think);
 	while ((philo->tab->eating_count == 0
 			|| philo->eating_count < philo->tab->eating_count)
 		&& ft_dead_status(philo->tab) == 0)
