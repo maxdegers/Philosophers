@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:38:56 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/12 19:16:24 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:32:42 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	ft_dead_status(t_tab *tab)
 	pthread_mutex_lock(&tab->tab_mutex[M_DEAD]);
 	i = tab->is_dead;
 	pthread_mutex_unlock(&tab->tab_mutex[M_DEAD]);
+	usleep(tab->n_philo * 10);
 	return (i);
 }
 
