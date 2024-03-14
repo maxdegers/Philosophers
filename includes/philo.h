@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 00:46:55 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/12 19:05:29 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:37:39 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_philo
 	pthread_t		p_thread;
 	size_t			eating_count;
 	long long		last_meal;
+	long long		tt_die;
 	struct s_fork	*left_fork;
 	struct s_fork	*right_fork;
 }	t_philo;

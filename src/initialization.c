@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:10 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/12 19:04:31 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:39:05 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ static int	ft_set_philo(t_tab *tab)
 		tab->tab_philo[i].eating_count = 0;
 		tab->tab_philo[i].left_fork = &tab->tab_fork[i];
 		tab->tab_philo[i].last_meal = ft_get_time();
+		tab->tab_philo[i].tt_die = tab->tab_philo[i].last_meal
+			+ tab->tab_philo[i].tt_die;
 		tab->tab_philo[i].right_fork = &tab->tab_fork[(i + 1) % tab->n_philo];
 		i++;
 	}
