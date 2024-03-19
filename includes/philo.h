@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 00:46:55 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/14 15:37:39 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:30:11 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <pthread.h>
-# include <stdint.h>
-# include <time.h>
 # include <sys/time.h>
-# include <limits.h>
 
 # define MAX_PHILO 200
 # define MAX_PHILO_STR "\033[1;34mToo many philosophers,\
