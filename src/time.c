@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 19:38:12 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/14 19:40:18 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:42:53 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_usleep(t_philo *philo, long long time)
 			ft_print(philo->tab, philo->id, DEAD);
 			return ;
 		}
-		usleep(10);		
+		usleep(500);
 	}
-	usleep(philo->tab->n_philo * 10);
+	usleep(500);
 }

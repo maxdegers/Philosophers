@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:34:10 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/14 19:28:59 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:35:52 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_set_tab(t_tab *tab, int argc, char **argv)
 	tab->tt_sleep = ft_atol(argv[4]);
 	tab->tt_think = 0;
 	if ((tab->n_philo % 2 == 0) && (tab->tt_eat > tab->tt_sleep))
-		tab->tt_think = (tab->tt_eat - tab->tt_sleep);
+		tab->tt_think = 4000;
 	if (argc == 6)
 		tab->eating_count = ft_atoi(argv[5]);
 	else

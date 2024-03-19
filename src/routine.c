@@ -6,7 +6,7 @@
 /*   By: mbrousse <mbrousse@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:37:46 by mbrousse          #+#    #+#             */
-/*   Updated: 2024/03/14 19:32:07 by mbrousse         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:45:36 by mbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	ft_sleep(t_philo *philo)
 {
 	ft_print(philo->tab, philo->id, SLEEPING);
 	ft_usleep(philo, philo->tab->tt_sleep);
-	usleep(philo->tab->n_philo * 10);
+	usleep(500);
 	return (0);
 }
 
@@ -56,7 +56,7 @@ void	*ft_routine(void *arg)
 	pthread_mutex_lock(&philo->tab->tab_mutex[M_READY]);
 	pthread_mutex_unlock(&philo->tab->tab_mutex[M_READY]);
 	if (philo->id % 2)
-		usleep(philo->tab->tt_think);
+		usleep(4000);
 	while ((philo->tab->eating_count == 0
 			|| philo->eating_count < philo->tab->eating_count)
 		&& ft_dead_status(philo->tab) == 0)
@@ -70,7 +70,7 @@ void	*ft_routine(void *arg)
 		if (ft_dead_status(philo->tab))
 			break ;
 		ft_print(philo->tab, philo->id, THINKING);
-		usleep(philo->tab->n_philo * 10);
+		usleep(500);
 	}
 	return (NULL);
 }
